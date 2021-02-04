@@ -36,15 +36,14 @@ def predict_rub_salary(vacancy):
 if __name__ == '__main__':
     # name_vacancies = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP',
     #                   'C++', 'Swift', 'C#', 'C', 'Go']
-    name_vacancies = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP',
-                      'Swift', 'C#', 'C', 'Go']
+    languages = ['C++']
     number_page = 0
 
 
     dict_vacations = {}
-    for vacancy in name_vacancies:
+    for language in languages:
 
-        first_page_response = get_first_page_vacancy(vacancy, number_page)
+        first_page_response = get_first_page_vacancy(language, number_page)
 
         vacancies_found = first_page_response['found']
         pages = first_page_response['pages']
@@ -52,7 +51,7 @@ if __name__ == '__main__':
 
         vacancies = []
         for page in range(2, pages + 1):
-            vacancies += get_first_page_vacancy(vacancy, page)['items']
+            vacancies += get_first_page_vacancy(language, page)['items']
             if page == 19:
                 break
 
