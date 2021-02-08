@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 
 
 def get_first_page_vacancy(vacancy):
@@ -32,26 +31,18 @@ def predict_rub_salary_for_superJob(vacancy):
     return average_salary
 
 
-if __name__ == '__main__':
-    languages = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'Swift', 'C#', 'C', 'Go']
+def get_vacancies_dict(languages):
+    average_salary_languages = {}
 
     for language in languages:
         first_page_vacancy = get_first_page_vacancy(language)
-
         total = first_page_vacancy['total']
-
-        average_salary_languages = {}
 
         all_salary = []
         sum_salarys = 0
-
         for number_vacancy in range(0, total):
             if number_vacancy < 100:
                 vacancy = first_page_vacancy['objects'][number_vacancy]
-                currency = first_page_vacancy['objects'][number_vacancy]['currency']
-                title_vacancy = first_page_vacancy['objects'][number_vacancy]['profession']
-                town = first_page_vacancy['objects'][number_vacancy]['town']['title']
-
                 salary = predict_rub_salary_for_superJob(vacancy)
                 if salary is None:
                     pass
@@ -63,8 +54,8 @@ if __name__ == '__main__':
         average_salary = sum_salarys / vacancies_processed
 
         average_salary_languages.update({language:
-                                        {'Найдено вакансий': total,
-                                         'Обработано вакансий': vacancies_processed,
-                                         'Средняя ЗП': int(average_salary)}})
+                                        {'vacancies_found': total,
+                                         'vacancies_processed': vacancies_processed,
+                                         'average_salary': int(average_salary)}})
+    return average_salary_languages
 
-        pprint(average_salary_languages)
