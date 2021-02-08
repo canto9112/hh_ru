@@ -2,7 +2,7 @@ import requests
 
 
 def get_first_page_vacancy(vacancy, api_key):
-    url = '	https://api.superjob.ru/2.0/vacancies/'
+    url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {'X-Api-App-Id': api_key}
     params = {
         'count': 100,
