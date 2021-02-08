@@ -1,7 +1,6 @@
 import requests
-from pprint import pprint
 
-languages = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'Swift', 'C#', 'C', 'Go']
+
 def get_first_page_vacancy(vacancy, page):
     params = {
         'text': f'Программист {vacancy}',
@@ -19,9 +18,9 @@ def predict_rub_salary(vacancy):
     salary = vacancy['salary']
 
     if salary is None:
-        None
+        return None
     elif salary['currency'] != 'RUR':
-        None
+        return None
     elif salary['currency'] == 'RUR':
         from_salary = salary['from']
         to_salary = salary['to']
