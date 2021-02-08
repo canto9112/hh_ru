@@ -1,7 +1,7 @@
 import requests
 from pprint import pprint
 
-
+languages = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'Swift', 'C#', 'C', 'Go']
 def get_first_page_vacancy(vacancy, page):
     params = {
         'text': f'Программист {vacancy}',
@@ -34,9 +34,7 @@ def predict_rub_salary(vacancy):
         return average_salary
 
 
-if __name__ == '__main__':
-
-    languages = ['JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'Swift', 'C#', 'C', 'Go']
+def get_vacancies_dict(languages):
     number_page = 0
 
     average_salary_languages = {}
@@ -66,12 +64,9 @@ if __name__ == '__main__':
         average_salary = sum_salarys / vacancies_processed
 
         average_salary_languages.update({language:
-                                        {'Найдено вакансий': vacancies_found,
-                                         'Обработано вакансий': vacancies_processed,
-                                         'Средняя ЗП': int(average_salary)}})
+                                        {'vacancies_found': vacancies_found,
+                                         'vacancies_processed': vacancies_processed,
+                                         'average_salary': int(average_salary)}})
 
-    pprint(average_salary_languages)
-
-
-
+    return average_salary_languages
 
