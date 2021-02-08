@@ -57,4 +57,3 @@ def get_vacancies_dict(languages, api_key):
                                          'vacancies_processed': vacancies_processed,
                                          'average_salary': int(average_salary)}})
     return average_salary_languages
-m
