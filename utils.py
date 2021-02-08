@@ -2,8 +2,7 @@ from terminaltables import AsciiTable
 
 
 def get_terminaltables(dict, title):
-    data = []
-    data.append(['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата' ])
+    data = [['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата']]
 
     for vacancy in dict.items():
         language = vacancy[0]
@@ -13,5 +12,5 @@ def get_terminaltables(dict, title):
         data.append([language, vacancies_found, vacancies_processed, average_salary])
 
     table = AsciiTable(data, title)
-    print(table.table)
+    return table.table
 
