@@ -1,10 +1,10 @@
 from terminaltables import AsciiTable
 
 
-def get_terminaltables(dict, title):
+def get_terminaltables(vacancies_dict, title):
     data = [['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата']]
 
-    for vacancy in dict.items():
+    for vacancy in vacancies_dict.items():
         language = vacancy[0]
         vacancies_found = vacancy[1]['vacancies_found']
         vacancies_processed = vacancy[1]['vacancies_processed']
