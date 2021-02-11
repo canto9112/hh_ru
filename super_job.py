@@ -21,7 +21,7 @@ def get_average_salary_languages_superJob(languages, api_key):
     average_salary_languages = {}
     for language in languages:
         all_vacancies, total = get_all_vacancies_superJob(language, api_key)
-        all_salary = []
+        all_salarys = []
         sum_salarys = 0
         for vacancy in all_vacancies:
             payment_from = vacancy['payment_from']
@@ -29,9 +29,9 @@ def get_average_salary_languages_superJob(languages, api_key):
             salary = utils.predict_rub_salary(payment_from, payment_to)
             if not salary:
                 continue
-            all_salary.append(salary)
+            all_salarys.append(salary)
             sum_salarys += salary
-        vacancies_processed = len(all_salary)
+        vacancies_processed = len(all_salarys)
         average_salary = sum_salarys / vacancies_processed
         average_salary_languages.update({language:
                                         {'vacancies_found': total,
