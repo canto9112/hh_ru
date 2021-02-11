@@ -1,11 +1,13 @@
 import requests
+from pprint import pprint
 
 
-def get_first_page_vacancy(vacancy, api_key):
+def get_first_page_vacancies(vacancy, api_key, page):
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {'X-Api-App-Id': api_key}
     params = {
         'count': 100,
+        'page': page,
         'keyword': f'Программист {vacancy}',
         'town': 4,
         'catalogues': 33
@@ -34,7 +36,7 @@ def get_average_salary_languages_superJob(languages, api_key):
     average_salary_languages = {}
 
     for language in languages:
-        first_page_vacancy = get_first_page_vacancy(language, api_key)
+        first_page_vacancy = get_first_page_vacancies(language, api_key)
         total = first_page_vacancy['total']
 
         all_salary = []
@@ -56,4 +58,5 @@ def get_average_salary_languages_superJob(languages, api_key):
                                         {'vacancies_found': total,
                                          'vacancies_processed': vacancies_processed,
                                          'average_salary': int(average_salary)}})
+    print(average_salary_languages)
     return average_salary_languages
