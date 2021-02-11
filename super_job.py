@@ -1,11 +1,13 @@
 import requests
+import utils
 
 
-def get_first_page_vacancy(vacancy, api_key):
+def get_vacancies(vacancy, api_key, page):
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {'X-Api-App-Id': api_key}
     params = {
         'count': 100,
+        'page': page,
         'keyword': f'Программист {vacancy}',
         'town': 4,
         'catalogues': 33
@@ -15,45 +17,37 @@ def get_first_page_vacancy(vacancy, api_key):
     return response.json()
 
 
-def predict_rub_salary_for_superJob(vacancy):
-    payment_from = vacancy['payment_from']
-    payment_to = vacancy['payment_to']
-
-    if payment_from == 0 and payment_to == 0:
-        return None
-    elif payment_from == 0 and payment_to != 0:
-        average_salary = payment_to * 0.8
-    elif payment_from != 0 and payment_to == 0:
-        average_salary = payment_from * 1.2
-    else:
-        average_salary = (payment_from + payment_to) / 2
-    return average_salary
-
-
 def get_average_salary_languages_superJob(languages, api_key):
     average_salary_languages = {}
-
     for language in languages:
-        first_page_vacancy = get_first_page_vacancy(language, api_key)
-        total = first_page_vacancy['total']
-
+        all_vacancies, total = get_all_vacancies_superJob(language, api_key)
         all_salary = []
         sum_salarys = 0
-        for number_vacancy in range(0, total):
-            if number_vacancy < 100:
-                vacancy = first_page_vacancy['objects'][number_vacancy]
-                salary = predict_rub_salary_for_superJob(vacancy)
-                if salary is None:
-                    pass
-                else:
-                    all_salary.append(salary)
-                    sum_salarys += salary
-
+        for vacancy in all_vacancies:
+            payment_from = vacancy['payment_from']
+            payment_to = vacancy['payment_to']
+            salary = utils.predict_rub_salary(payment_from, payment_to)
+            if not salary:
+                continue
+            all_salary.append(salary)
+            sum_salarys += salary
         vacancies_processed = len(all_salary)
         average_salary = sum_salarys / vacancies_processed
-
         average_salary_languages.update({language:
                                         {'vacancies_found': total,
                                          'vacancies_processed': vacancies_processed,
                                          'average_salary': int(average_salary)}})
     return average_salary_languages
+
+
+def get_all_vacancies_superJob(language, api_key):
+    all_vacancies = []
+    more = True
+    page = 0
+    while more:
+        first_page_vacancy = get_vacancies(language, api_key, page)
+        all_vacancies.extend(first_page_vacancy['objects'])
+        total = first_page_vacancy['total']
+        more = first_page_vacancy['more']
+        page += 1
+    return all_vacancies, total
