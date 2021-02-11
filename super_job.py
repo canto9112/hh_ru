@@ -1,5 +1,5 @@
 import requests
-from pprint import pprint
+import utils
 
 
 def get_vacancies(vacancy, api_key, page):
@@ -17,21 +17,6 @@ def get_vacancies(vacancy, api_key, page):
     return response.json()
 
 
-def predict_rub_salary_for_superJob(vacancy):
-    payment_from = vacancy['payment_from']
-    payment_to = vacancy['payment_to']
-
-    if payment_from == 0 and payment_to == 0:
-        return None
-    elif payment_from == 0 and payment_to != 0:
-        average_salary = payment_to * 0.8
-    elif payment_from != 0 and payment_to == 0:
-        average_salary = payment_from * 1.2
-    else:
-        average_salary = (payment_from + payment_to) / 2
-    return average_salary
-
-
 def get_average_salary_languages_superJob(languages, api_key):
     average_salary_languages = {}
     for language in languages:
@@ -39,9 +24,11 @@ def get_average_salary_languages_superJob(languages, api_key):
         all_salary = []
         sum_salarys = 0
         for vacancy in all_vacancies:
-            salary = predict_rub_salary_for_superJob(vacancy)
-            if salary is None:
-                pass
+            payment_from = vacancy['payment_from']
+            payment_to = vacancy['payment_to']
+            salary = utils.predict_rub_salary(payment_from, payment_to)
+            if not salary:
+                continue
             else:
                 all_salary.append(salary)
                 sum_salarys += salary
