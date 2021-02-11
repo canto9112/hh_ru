@@ -30,7 +30,7 @@ def predict_rub_salary_for_superJob(vacancy):
     return average_salary
 
 
-def get_average_salary_languages(languages, api_key):
+def get_average_salary_languages_superJob(languages, api_key):
     average_salary_languages = {}
 
     for language in languages:

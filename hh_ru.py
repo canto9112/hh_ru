@@ -33,7 +33,7 @@ def predict_rub_salary(vacancy):
         return average_salary
 
 
-def get_vacancies_dict(languages):
+def get_average_salary_languages_hh(languages):
     number_page = 0
 
     average_salary_languages = {}
