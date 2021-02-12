@@ -30,7 +30,7 @@ def get_average_salary_languages_hh(languages):
             all_vacancies.extend(vacancies)
             page += 1
         all_salary = []
-        sum_salarys = 0
+        salaries_sum = 0
         for vacancy in all_vacancies:
             if not vacancy['salary']:
                 continue
@@ -42,9 +42,9 @@ def get_average_salary_languages_hh(languages):
             if not salary:
                 continue
             all_salary.append(salary)
-            sum_salarys += salary
+            salaries_sum += salary
         vacancies_processed = len(all_salary)
-        average_salary = sum_salarys / vacancies_processed
+        average_salary = salaries_sum / vacancies_processed
         average_salary_languages.update({language:
                                         {'vacancies_found': vacancies_found,
                                          'vacancies_processed': vacancies_processed,
