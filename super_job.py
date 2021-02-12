@@ -3,14 +3,18 @@ import utils
 
 
 def get_vacancies(vacancy, api_key, page):
+    per_page_vacancies = 100
+    area_moscow = 4
+    it_catalog = 33
+
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {'X-Api-App-Id': api_key}
     params = {
-        'count': 100,
+        'count': per_page_vacancies,
         'page': page,
         'keyword': f'Программист {vacancy}',
-        'town': 4,
-        'catalogues': 33
+        'town': area_moscow,
+        'catalogues': it_catalog
     }
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
