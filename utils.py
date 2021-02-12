@@ -13,9 +13,7 @@ def get_terminal_table(vacancies, title):
 
 
 def predict_rub_salary(payment_from, payment_to):
-    if not payment_from and not payment_to:
-        return None
-    elif payment_from and not payment_to:
+    if payment_from and not payment_to:
         return payment_from * 1.2
     elif not payment_from and payment_to:
         return payment_to * 0.8
