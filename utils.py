@@ -20,4 +20,4 @@ def predict_rub_salary(payment_from, payment_to):
     elif payment_from and payment_to:
         return None
     else:
-        return (payment_from + payment_to) / ы
+        return (payment_from + payment_to) / 2
