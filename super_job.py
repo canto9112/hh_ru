@@ -45,9 +45,9 @@ def get_all_vacancies_superJob(language, api_key):
     more = True
     page = 0
     while more:
-        first_page_vacancy = get_vacancies(language, api_key, page)
-        all_vacancies.extend(first_page_vacancy['objects'])
-        total = first_page_vacancy['total']
-        more = first_page_vacancy['more']
+        page_response = get_vacancies(language, api_key, page)
+        all_vacancies.extend(page_response['objects'])
+        total = page_response['total']
+        more = page_response['more']
         page += 1
     return all_vacancies, total
