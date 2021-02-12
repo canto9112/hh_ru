@@ -3,11 +3,15 @@ import utils
 
 
 def get_vacancies_page(vacancy, page):
+    area_moscow = 1
+    period = 30
+    per_page_vacancies = 100
+
     params = {
         'text': f'Программист {vacancy}',
-        'area': 1,
-        'period': 30,
-        'per_page': 100,
+        'area': area_moscow,
+        'period': period,
+        'per_page': per_page_vacancies,
         'page': page
     }
     response = requests.get('https://api.hh.ru/vacancies', params=params)
