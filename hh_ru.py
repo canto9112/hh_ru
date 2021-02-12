@@ -45,9 +45,10 @@ def get_average_salary_languages_hh(languages):
             salaries_sum += salary
         vacancies_processed = len(all_salary)
         average_salary = salaries_sum / vacancies_processed
-        average_salary_languages.update({language:
-                                        {'vacancies_found': vacancies_found,
-                                         'vacancies_processed': vacancies_processed,
-                                         'average_salary': int(average_salary)}})
+        average_salary_languages[language] = {
+            'vacancies_found': vacancies_found,
+            'vacancies_processed': vacancies_processed,
+            'average_salary': int(average_salary)
+        }
     return average_salary_languages
 
