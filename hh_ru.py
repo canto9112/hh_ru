@@ -22,13 +22,7 @@ def get_vacancies_page(vacancy, page):
 def get_average_salary_languages_hh(languages):
     average_salary_languages = {}
     for language in languages:
-        all_vacancies = []
-        page = 0
-        pages_amount = 1
-        while page < pages_amount:
-            pages_amount, vacancies, vacancies_found = get_vacancies_page(language, page)
-            all_vacancies.extend(vacancies)
-            page += 1
+        all_vacancies, vacancies_found = get_all_vacancies_superJob(language)
         all_salary = []
         salaries_sum = 0
         for vacancy in all_vacancies:
@@ -52,3 +46,13 @@ def get_average_salary_languages_hh(languages):
         }
     return average_salary_languages
 
+
+def get_all_vacancies_superJob(language):
+    all_vacancies = []
+    page = 0
+    pages_amount = 1
+    while page < pages_amount:
+        pages_amount, vacancies, vacancies_found = get_vacancies_page(language, page)
+        all_vacancies.extend(vacancies)
+        page += 1
+    return all_vacancies, vacancies_found
