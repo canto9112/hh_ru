@@ -2,7 +2,7 @@ import requests
 import utils
 
 
-def get_first_page_vacancy(vacancy, page):
+def get_vacancies_page(vacancy, page):
     params = {
         'text': f'Программист {vacancy}',
         'area': 1,
@@ -26,7 +26,7 @@ def get_average_salary_languages_hh(languages):
         page = 0
         pages_amount = 1
         while page < pages_amount:
-            pages_amount, vacancies, vacancies_found = get_first_page_vacancy(language, page)
+            pages_amount, vacancies, vacancies_found = get_vacancies_page(language, page)
             all_vacancies.extend(vacancies)
             page += 1
         all_salary = []
