@@ -1,9 +1,9 @@
 from terminaltables import AsciiTable
 
 
-def get_terminal_table(vacancies_dict, title):
+def get_terminal_table(vacancies, title):
     data = [['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата']]
-    for language, statistics, in vacancies_dict.items():
+    for language, statistics, in vacancies.items():
         data.append([language,
                      statistics['vacancies_found'],
                      statistics['vacancies_processed'],
